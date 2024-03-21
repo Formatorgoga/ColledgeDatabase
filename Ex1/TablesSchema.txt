@@ -1,0 +1,99 @@
+//https://dbdiagram.io/d
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Gyms {
+  Gym_ID int [pk]
+  Name varchar
+  Area float
+  Address_ID varchar [ref: > Address.Address_ID]
+  Contact_Phone varchar
+}
+
+Table Sports {
+  Sport_ID int [pk]
+  Name varchar
+  Description text
+}
+
+Table Trainers {
+  Trainer_ID int [pk]
+  First_Name varchar
+  Last_Name varchar
+  Experience int
+  Contact_Phone varchar
+  Address_ID varchar [ref: > Address.Address_ID]
+  Passport varchar
+}
+
+Table Clients {
+  Client_ID int [pk]
+  First_Name varchar
+  Last_Name varchar
+  Date_of_Birth date
+  Gender varchar
+  Contact_Phone varchar
+  Health varchar
+  
+}
+
+Table Schedules {
+  Schedule_ID int [pk]
+  Gym_ID int [ref: > Gyms.Gym_ID]
+  Sport_ID int [ref: > Sports.Sport_ID]
+  Day_of_Week varchar
+  Start_Time time
+  End_Time time
+}
+
+Table Trainer_Load {
+  Trainer_Load_ID int [pk]
+  Trainer_ID int [ref: > Trainers.Trainer_ID]
+  Schedule_ID int [ref: > Schedules.Schedule_ID]
+}
+
+Table Clients_in_Gym {
+  Clients_in_Gym_ID int [pk]
+  Client_ID int [ref: > Clients.Client_ID]
+  Gym_ID int [ref: > Gyms.Gym_ID]
+  Start_Date date
+  End_Date date
+  Address_ID int [ref: > Address.Address_ID] 
+}
+
+Table Client_Schedule {
+  Client_Schedule_ID int [pk]
+  Client_ID int [ref: > Clients.Client_ID]
+  Schedule_ID int [ref: > Schedules.Schedule_ID]
+}
+
+Table Gym_Report {
+  Gym_Report_ID int [pk]
+  Gym_ID int [ref: > Gyms.Gym_ID]
+  Report_Date date
+  Total_Attendance int
+}
+
+Table Trainer_Report {
+  Trainer_Report_ID int [pk]
+  Trainer_ID int [ref: > Trainers.Trainer_ID]
+  Report_Date date
+  Total_Load int
+}
+
+Table Sport_Report {
+  Sport_Report_ID int [pk]
+  Sport_ID int [ref: > Sports.Sport_ID]
+  Report_Date date
+ 
+}
+
+Table Address {
+  Address_ID id [pk]
+  Address_Line1 varchar
+  Address_Line2 varchar
+  City varchar
+  Street varchar
+  House varchar
+
+}
